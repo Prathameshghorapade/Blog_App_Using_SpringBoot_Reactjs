@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -31,4 +33,9 @@ public class User {
     private String password;
 
     private String about;
+
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    List<Post> posts = new ArrayList<>();
+
 }
