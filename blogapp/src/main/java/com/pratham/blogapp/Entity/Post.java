@@ -2,12 +2,16 @@ package com.pratham.blogapp.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "posts")
 public class Post {
