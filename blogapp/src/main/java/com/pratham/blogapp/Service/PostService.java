@@ -16,7 +16,7 @@ public interface PostService {
 
     //Update
 
-    Post updatePost(PostDto postDto, Integer postId);
+    PostDto updatePost(PostDto postDto, Integer postId);
 
     //Delete
 
@@ -24,12 +24,12 @@ public interface PostService {
 
     //GetAllPOsts
 
-    List<Post> getAllPosts();
+    List<PostDto> getAllPosts();
 
 
     //Get Single Post
 
-    Post getPOstById(Integer postId);
+    PostDto getPostById(Integer postId);
 
 
     //get All PostsBy CAtegory
