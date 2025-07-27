@@ -42,7 +42,7 @@ public interface PostService {
 
     //Search Post
 
-    List<Post> searchPost(String keyWord);
+    List<PostDto> searchPost(String keyWord);
 
 
     //search post by Title

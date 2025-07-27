@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.text.Collator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -111,6 +112,9 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostResponse getPostByCategory(Integer categoryId, Integer pageNumber, Integer pageSize) {
         // Create Pageable object
+
+
+
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
         // First, get the Category to ensure it exists
@@ -144,6 +148,8 @@ public class PostServiceImpl implements PostService {
     public PostResponse getPostsByUser(Integer userId,Integer pageNumber, Integer pageSize)
 
     {
+
+
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
 
@@ -167,8 +173,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> searchPost(String keyWord) {
-        return List.of();
+    public List<PostDto> searchPost(String keyWord) {
+       List<Post> posts= postRepo.findByTitleContaining(keyWord);
+            List<PostDto> postDtos=posts.stream().map((post)-> modelMapper.map(post,PostDto.class)).collect(Collectors.toList());
+        return postDtos ;
     }
 
     @Override
