@@ -2,6 +2,7 @@ package com.pratham.blogapp.Service;
 
 import com.pratham.blogapp.Entity.Post;
 import com.pratham.blogapp.Payloads.PostDto;
+import com.pratham.blogapp.Payloads.PostResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public interface PostService {
 
     //GetAllPOsts
 
-    List<PostDto> getAllPosts();
+   PostResponse getAllPosts(Integer pageNumber, Integer pageSize,String sortBy,String sortDir);
 
 
     //Get Single Post
@@ -33,12 +34,11 @@ public interface PostService {
 
 
     //get All PostsBy CAtegory
-
-    List<PostDto> getPostByCategory(Integer categoryId);
+    PostResponse getPostByCategory(Integer categoryId,Integer pageNumber, Integer pageSize);
 
     //get All Post by User
 
-    List<PostDto> getPostsByUser(Integer userId);
+    PostResponse getPostsByUser(Integer userId,Integer pageNumber, Integer pageSize);
 
     //Search Post
 

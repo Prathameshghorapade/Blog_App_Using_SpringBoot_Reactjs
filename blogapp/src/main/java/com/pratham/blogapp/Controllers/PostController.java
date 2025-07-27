@@ -2,6 +2,7 @@ package com.pratham.blogapp.Controllers;
 
 import com.pratham.blogapp.Payloads.ApiResponse;
 import com.pratham.blogapp.Payloads.PostDto;
+import com.pratham.blogapp.Payloads.PostResponse;
 import com.pratham.blogapp.Service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,26 +27,32 @@ public class PostController {
 
 
     @GetMapping("/user/{userId}/posts")
-    public ResponseEntity<List<PostDto>> getPostByUser(@PathVariable Integer userId) {
-        List<PostDto> posts = postService.getPostsByUser(userId);
-        return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
+    public ResponseEntity<PostResponse> getPostByUser(@PathVariable Integer userId,@RequestParam (value = "pageNumber",defaultValue = "1",required = false)Integer pageNumber, @RequestParam(value = "pageSize",defaultValue = "5",required = false)Integer pageSize) {
+        PostResponse postResponse = postService.getPostsByUser(userId,pageNumber,pageSize);
+        return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
 
     }
 
 
     @GetMapping("/category/{categoryId}/posts")
-    public ResponseEntity<List<PostDto>> getPostByCategory(@PathVariable Integer categoryId) {
-        List<PostDto> posts = postService.getPostByCategory(categoryId);
-        return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
+    public ResponseEntity<PostResponse> getPostByCategory(@PathVariable Integer categoryId,@RequestParam (value = "pageNumber",defaultValue = "1",required = false)Integer pageNumber, @RequestParam(value = "pageSize",defaultValue = "5",required = false)Integer pageSize) {
+
+        PostResponse postResponse = postService.getPostByCategory(categoryId,pageNumber,pageSize);
+
+        return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
 
     }
 
 
 
     @GetMapping("/posts")
-    public ResponseEntity<List<PostDto>> getAllPosts() {
-        List<PostDto> posts = postService.getAllPosts();
-        return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
+    public ResponseEntity<PostResponse> getAllPosts(@RequestParam (value = "pageNumber",defaultValue = "1",required = false)Integer pageNumber,
+                                                    @RequestParam(value = "pageSize",defaultValue = "5",required = false)Integer pageSize,
+                                                    @RequestParam (value = "sortBy",defaultValue = "postId",required = false)String sortBy,
+                                                    @RequestParam (value = "sortDir",defaultValue = "asc",required = false)String sortDir) {
+
+        PostResponse postResponse = postService.getAllPosts( pageNumber,pageSize,sortBy,sortDir);
+        return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
 
     }
 
