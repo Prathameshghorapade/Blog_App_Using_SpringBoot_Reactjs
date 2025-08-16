@@ -1,12 +1,13 @@
 package com.pratham.blogapp.Payloads;
 
 import com.pratham.blogapp.Entity.Category;
+import com.pratham.blogapp.Entity.Comment;
 import com.pratham.blogapp.Entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -27,4 +28,5 @@ public class PostDto {
 
     private CategoryDto category;
 
+    private List<CommentDto> comments = new ArrayList<>();
 }

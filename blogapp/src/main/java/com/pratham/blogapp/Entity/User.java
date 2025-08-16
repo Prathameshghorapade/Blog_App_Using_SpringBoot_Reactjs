@@ -38,4 +38,10 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     List<Post> posts = new ArrayList<>();
 
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",joinColumns = @JoinColumn(name = "user",referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "role",referencedColumnName = "id"))
+
+    private List<Role>roles=new ArrayList<>();
+
 }
