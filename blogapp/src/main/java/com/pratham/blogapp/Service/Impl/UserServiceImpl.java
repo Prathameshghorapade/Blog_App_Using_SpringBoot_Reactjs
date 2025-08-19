@@ -1,12 +1,16 @@
 package com.pratham.blogapp.Service.Impl;
 
+import com.pratham.blogapp.Config.AppConstants;
+import com.pratham.blogapp.Entity.Role;
 import com.pratham.blogapp.Entity.User;
 import com.pratham.blogapp.Payloads.UserDto;
+import com.pratham.blogapp.Repository.RoleRepo;
 import com.pratham.blogapp.Repository.UserRepository;
 import com.pratham.blogapp.Service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.pratham.blogapp.Exceptions.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -21,6 +25,31 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleRepo roleRepo;
+
+    @Override
+    public UserDto registerUser(UserDto userDto) {
+
+      User user =  modelMapper.map(userDto,User.class);
+
+      //password encoding
+       user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+       //role
+
+        Role role = roleRepo.findById(AppConstants.NORMAL_USER).get();
+
+        user.getRoles().add(role);
+
+        User newUser = userRepository.save(user);
+
+        return modelMapper.map(newUser,UserDto.class);
+    }
 
     @Override
     public UserDto createUser(UserDto userDto) {
