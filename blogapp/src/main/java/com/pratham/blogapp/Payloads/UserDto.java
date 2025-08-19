@@ -1,5 +1,6 @@
 package com.pratham.blogapp.Payloads;
 
+import com.pratham.blogapp.Entity.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -8,6 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.validation.constraints.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -31,4 +35,6 @@ public class UserDto {
     private String password;
 
     private String about;
+
+    private List<RolesDto> roles = new ArrayList<>();
 }
