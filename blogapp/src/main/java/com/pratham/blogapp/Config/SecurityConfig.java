@@ -20,9 +20,11 @@ import com.pratham.blogapp.Security.JwtAuthenticationFilter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 public class SecurityConfig {
 
     @Autowired
@@ -33,6 +35,14 @@ public class SecurityConfig {
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    public static final String [] PUBLIC_URLS={
+            "/api/auth/**",
+            "/v3/api-docs/**",          // for OpenAPI JSON
+            "/swagger-ui/**",           // for Swagger UI static resources
+            "/swagger-ui.html",         // if using classic Swagger UI
+            "/v3/api-docs.yaml"         // optional YAML docs
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -51,7 +61,8 @@ public class SecurityConfig {
 
                 // Define which endpoints are open and which are protected
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // Login & register open
+
+                        .requestMatchers(PUBLIC_URLS).permitAll() // Login & register open
                         .anyRequest().authenticated() // Everything else requires auth
                 );
 
